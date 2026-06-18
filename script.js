@@ -22,12 +22,19 @@ async function getWeatherByCity() {
             return;
         }
 
-        document.getElementById("result").innerHTML = `
-            <h3>${data.name}, ${data.sys.country}</h3>
-            <p>🌡 Temperature: ${data.main.temp} °C</p>
-            <p>🤗 Feels Like: ${data.main.feels_like} °C</p>
-            <p>☁ Weather: ${data.weather[0].description}</p>
-            <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png">
+	document.getElementById("result").innerHTML = `
+    		<h3>${data.name}, ${data.sys.country}</h3>
+
+    		<p>🌡 Temperature: ${data.main.temp} °C</p>
+ 	   	<p>🤗 Feels Like: ${data.main.feels_like} °C</p>
+   		<p>☁ Weather: ${data.weather[0].description}</p>
+
+    		<p>💧 Humidity: ${data.main.humidity}%</p>
+    		<p>💨 Wind Speed: ${data.wind.speed} m/s</p>
+    		<p>🌍 Pressure: ${data.main.pressure} hPa</p>
+    		<p>👀 Visibility: ${(data.visibility / 1000).toFixed(1)} km</p>
+    		<p>☁ Cloud Coverage: ${data.clouds.all}%</p>            <img class="weather-icon"
+            src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png">
         `;
     } catch (error) {
         document.getElementById("result").innerHTML =
