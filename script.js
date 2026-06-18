@@ -16,7 +16,6 @@ async function getWeatherByCity() {
 }
 
 function getWeather() {
-
     if (!navigator.geolocation) {
         document.getElementById("result").innerHTML =
             "<p>Geolocation is not supported by your browser.</p>";
@@ -27,9 +26,7 @@ function getWeather() {
         "<p>Detecting your GPS location...</p>";
 
     navigator.geolocation.getCurrentPosition(
-
         function(position) {
-
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
 
@@ -38,9 +35,7 @@ function getWeather() {
 
             fetchWeather(url);
         },
-
-        function(error) {
-
+        function() {
             document.getElementById("result").innerHTML =
                 "<p>Please allow location access.</p>";
         }
@@ -48,9 +43,7 @@ function getWeather() {
 }
 
 async function fetchWeather(url) {
-
     try {
-
         const response = await fetch(url);
         const data = await response.json();
 
@@ -60,11 +53,10 @@ async function fetchWeather(url) {
             return;
         }
 
-        const sunrise =
-            new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+        changeBackground(data.weather[0].main);
 
-        const sunset =
-            new Date(data.sys.sunset * 1000).toLocaleTimeString();
+        const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+        const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString();
 
         document.getElementById("result").innerHTML = `
             <h3>${data.name}, ${data.sys.country}</h3>
@@ -87,8 +79,44 @@ async function fetchWeather(url) {
         `;
 
     } catch (error) {
-
         document.getElementById("result").innerHTML =
             "<p>Error fetching weather data.</p>";
     }
 }
+
+function changeBackground(weather) {
+    document.body.className = "";
+
+    if (weather === "Clear") {
+        document.body.classList.add("clear");
+    } else if (weather === "Clouds") {
+        document.body.classList.add("clouds");
+    } else if (weather === "Rain" || weather === "Drizzle") {
+        document.body.classList.add("rain");
+    } else if (weather === "Thunderstorm") {
+        document.body.classList.add("storm");
+    } else if (weather === "Mist" || weather === "Fog" || weather === "Haze") {
+        document.body.classList.add("mist");
+    } else {
+        document.body.classList.add("default");
+    }
+}
+setInterval(() => {
+
+    if (navigator.geolocation) {
+
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                const url =
+                    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+                fetchWeather(url);
+            }
+        );
+    }
+
+}, 60000);
