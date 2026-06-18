@@ -9,9 +9,16 @@ async function getWeatherByCity() {
         return;
     }
 
-    const url =
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    fetchWeather(url);
+}
 
+function getWeather() {
+    document.getElementById("result").innerHTML =
+        "<p>Location may not work on EC2 HTTP. Use city search instead.</p>";
+}
+
+async function fetchWeather(url) {
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -22,19 +29,25 @@ async function getWeatherByCity() {
             return;
         }
 
-	document.getElementById("result").innerHTML = `
-    		<h3>${data.name}, ${data.sys.country}</h3>
+        const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString();
+        const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString();
 
-    		<p>🌡 Temperature: ${data.main.temp} °C</p>
- 	   	<p>🤗 Feels Like: ${data.main.feels_like} °C</p>
-   		<p>☁ Weather: ${data.weather[0].description}</p>
+        document.getElementById("result").innerHTML = `
+            <h3>${data.name}, ${data.sys.country}</h3>
 
-    		<p>💧 Humidity: ${data.main.humidity}%</p>
-    		<p>💨 Wind Speed: ${data.wind.speed} m/s</p>
-    		<p>🌍 Pressure: ${data.main.pressure} hPa</p>
-    		<p>👀 Visibility: ${(data.visibility / 1000).toFixed(1)} km</p>
-    		<p>☁ Cloud Coverage: ${data.clouds.all}%</p>            <img class="weather-icon"
-            src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png">
+            <p>🌡 Temperature: ${data.main.temp} °C</p>
+            <p>🤗 Feels Like: ${data.main.feels_like} °C</p>
+            <p>☁ Weather: ${data.weather[0].description}</p>
+
+            <p>💧 Humidity: ${data.main.humidity}%</p>
+            <p>💨 Wind Speed: ${data.wind.speed} m/s</p>
+            <p>🌍 Pressure: ${data.main.pressure} hPa</p>
+            <p>👀 Visibility: ${(data.visibility / 1000).toFixed(1)} km</p>
+            <p>☁ Cloud Coverage: ${data.clouds.all}%</p>
+            <p>🌅 Sunrise: ${sunrise}</p>
+            <p>🌇 Sunset: ${sunset}</p>
+
+            <img class="weather-icon" src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png">
         `;
     } catch (error) {
         document.getElementById("result").innerHTML =
@@ -42,7 +55,3 @@ async function getWeatherByCity() {
     }
 }
 
-function getWeather() {
-    document.getElementById("result").innerHTML =
-        "<p>Location may not work on EC2 HTTP. Use city search instead.</p>";
-}
