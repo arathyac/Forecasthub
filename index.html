@@ -6,16 +6,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="weather-card">
-        <h1>ForecastHub</h1>
-        <p>Real-Time Weather Dashboard</p>
+    <div class="weather-bg"></div>
 
-        <input type="text" id="cityInput" placeholder="Enter city name">
-        <button onclick="getWeatherByCity()">Search City</button>
-        <button onclick="getWeather()">Use My Location</button>
+    <div class="dashboard">
+        <div class="sidebar">
+            <h2>ForecastHub</h2>
+            <p>Real-time Weather</p>
+            <button onclick="getWeather()">📍 Use My Location</button>
+            <input type="text" id="cityInput" placeholder="Search city">
+            <button onclick="getWeatherByCity()">Search</button>
+        </div>
 
-        <div id="result">
-            <p>Search a city or use location.</p>
+        <div class="main-content">
+            <div class="top-card" id="mainWeather">
+                <h1>Today's Weather</h1>
+                <p>Click location or search city</p>
+            </div>
+
+            <div class="details-grid" id="result"></div>
         </div>
     </div>
 
