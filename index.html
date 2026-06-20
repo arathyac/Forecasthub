@@ -6,31 +6,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="weather-animation"></div>
+    <div class="bg-animation"></div>
 
-    <main class="container">
-        <section class="hero-card">
-            <div>
-                <p class="tag">LIVE WEATHER DASHBOARD</p>
-                <h1>ForecastHub</h1>
-                <p class="subtitle">Real-time weather using your location or city search</p>
-            </div>
+    <main class="app">
+        <section class="left-panel">
+            <p class="label">LIVE WEATHER DASHBOARD</p>
+            <h1>ForecastHub</h1>
+            <p class="subtitle">Real-time GPS based weather intelligence</p>
 
-            <div class="search-row">
-                <input type="text" id="cityInput" placeholder="Enter city name">
+            <div class="search-area">
+                <input type="text" id="cityInput" placeholder="Search city">
                 <button onclick="getWeatherByCity()">Search</button>
-                <button class="location-btn" onclick="getWeather()">Use My Location</button>
+                <button class="gps" onclick="getWeather()">Use My Location</button>
             </div>
         </section>
 
-        <section class="dashboard">
-            <div class="main-weather" id="mainWeather">
-                <p class="tag">TODAY</p>
-                <h2>Check live weather</h2>
-                <p>Search a city or use GPS location.</p>
+        <section class="right-panel">
+            <div class="weather-main" id="mainWeather">
+                <p class="label">TODAY</p>
+                <h2>Ready to detect weather</h2>
+                <p>Use GPS or search city to view live weather.</p>
             </div>
 
-            <div class="details-grid" id="result"></div>
+            <div class="weather-details" id="result"></div>
         </section>
     </main>
 
