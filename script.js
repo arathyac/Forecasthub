@@ -99,6 +99,6 @@ function changeBackground(weather) {
     } else if (weather === "Mist" || weather === "Fog" || weather === "Haze") {
         document.body.classList.add("mist");
     } else {
-        document.body.classList.add("default");
+        document.body.classList.add("home");
     }
 }

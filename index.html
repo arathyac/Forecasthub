@@ -5,27 +5,35 @@
     <title>ForecastHub</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="bg-animation"></div>
+<body class="home">
+    <div class="sky-effects">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="rain-layer"></div>
+        <div class="fog-layer"></div>
+        <div class="sun-orb"></div>
+        <div class="bush bush-left"></div>
+        <div class="bush bush-right"></div>
+    </div>
 
     <main class="app">
-        <section class="left-panel">
-            <p class="label">LIVE WEATHER DASHBOARD</p>
+        <section class="hero">
+            <p class="label">REAL-TIME WEATHER EXPERIENCE</p>
             <h1>ForecastHub</h1>
-            <p class="subtitle">Real-time GPS based weather intelligence</p>
+            <p class="subtitle">Discover live weather using GPS location or city search</p>
 
-            <div class="search-area">
-                <input type="text" id="cityInput" placeholder="Search city">
-                <button onclick="getWeatherByCity()">Search</button>
-                <button class="gps" onclick="getWeather()">Use My Location</button>
+            <div class="search-box">
+                <input type="text" id="cityInput" placeholder="Enter city name">
+                <button onclick="getWeatherByCity()">Search Weather</button>
+                <button class="gps-btn" onclick="getWeather()">Use My Location</button>
             </div>
         </section>
 
-        <section class="right-panel">
+        <section class="dashboard">
             <div class="weather-main" id="mainWeather">
                 <p class="label">TODAY</p>
-                <h2>Ready to detect weather</h2>
-                <p>Use GPS or search city to view live weather.</p>
+                <h2>Ready to explore weather</h2>
+                <p>Search a city or use GPS to view real-time weather details.</p>
             </div>
 
             <div class="weather-details" id="result"></div>
